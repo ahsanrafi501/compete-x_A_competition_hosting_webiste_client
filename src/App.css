@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
 @plugin "daisyui" {
   themes: light --default;
@@ -6,4 +7,40 @@
   exclude: ;
   prefix: ;
   logs: true;
+}
+
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+
+  /* Primary & Secondary colors */
+  --color-primary: #CAEB66;    /* Main buttons, links */
+  --color-secondary: #03373D;  /* Secondary buttons, hover, highlights */
+
+  /* Base / background colors */
+  --color-base-100: #ffffff;   /* Card or page background */
+  --color-base-200: #f4f4f5;   /* Slightly darker background */
+  --color-base-300: #e5e5e5;   /* Darker backgrounds if needed */
+
+  /* Text colors for light theme */
+  --color-base-content: #1F2937;  /* Default text (dark gray / almost black) */
+  --color-primary-content: #1F2937;  /* Text on primary color */
+  --color-secondary-content: #ffffff; /* Text on secondary color (dark bg) */
+
+  /* Accent / Alerts */
+  --color-accent: #FF7F50;     /* Highlight elements */
+  --color-info: #2094f3;       /* Info messages */
+  --color-success: #3adb76;    /* Success messages */
+  --color-warning: #ff9900;    /* Warning messages */
+  --color-error: #ff5724;      /* Error messages */
+}
+
+
+
+
+
+body{
+  font-family: "Urbanist", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
