@@ -4,6 +4,7 @@ import logoImg from "../../../assets/logo/smallLogo.png";
 import { Link, useNavigate } from "react-router";
 import useAuth from "../../../Hook/useAuth";
 import axios from "axios";
+import useAxiosSecure from "../../../Hook/useAxiosSecure";
 
 const Registration = () => {
   const {
@@ -13,8 +14,7 @@ const Registration = () => {
   } = useForm();
   const {registerUser, loading} = useAuth()
   const navigate = useNavigate();
-
-//   console.log(loading)
+  const axiosSecure = useAxiosSecure()
 
   const handleRegistration = (data) =>{
     
@@ -29,13 +29,25 @@ const Registration = () => {
         axios.post(imgAPI, formData)
         .then(res=>{
             const photoURL = res.data.data.url;
-            console.log(photoURL);
             
+
+            // Create User in Database
             const userInfo = {
                 displayName: data.name,
                 photoURL: photoURL,
                 email: data.email,
             }
+
+            axiosSecure.post('/user', userInfo)
+            .then(res =>{
+              if(res.data.insertedId){
+                console.log("User added in database");
+              }
+            })
+            .catch(error=>{
+              console.log(error);
+            })
+
             console.log(userInfo)
             navigate('/');
         })
