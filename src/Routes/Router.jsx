@@ -7,6 +7,7 @@ import MyProfile from "../Page/MyProfile/MyProfile";
 import AllContest from "../Page/AllContest/AllContest";
 import MyEnrolledContest from "../Page/myEnrolledContest/MyEnrolledContest";
 import LeaderBoard from "../Page/LeaderBoard/LeaderBoard";
+import Dashboard from "../Page/ Dashboard/Dashboard";
 
 export const router = createBrowserRouter([
   { path: "/", 
@@ -29,16 +30,20 @@ export const router = createBrowserRouter([
             Component: MyProfile
         },
         {
-            path:'all-contests',
+            path:'/all-contests',
             Component: AllContest
         },
         {
-            path:'my-enroll-contest',
+            path:'/my-enroll-contest',
             Component: MyEnrolledContest
         },
         {
-            path:'leaderboard',
+            path:'/leaderboard',
             Component: LeaderBoard
+        },
+        {
+            path:'/dashboard',
+            Component: Dashboard
         },
     ]
 },
