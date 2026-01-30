@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router";
 import useAuth from "../../../Hook/useAuth";
 import axios from "axios";
 import useAxiosSecure from "../../../Hook/useAxiosSecure";
+import SocialLogin from "../SocialLogin/SocialLogin";
 
 const Registration = () => {
   const {
@@ -50,6 +51,9 @@ const Registration = () => {
 
             console.log(userInfo)
             navigate('/');
+        })
+        .catch(err=>{
+          console.log(err);
         })
     })
 
@@ -122,6 +126,9 @@ const Registration = () => {
             </button>
             </form>
           </fieldset>
+          <div className="flex justify-center items-center flex-col mt-5">
+            <SocialLogin></SocialLogin>
+          </div>
         </div>
       </div>
     </div>
