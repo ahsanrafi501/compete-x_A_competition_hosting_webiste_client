@@ -13,7 +13,7 @@ const useAxiosSecure = () => {
 
   useEffect(() => {
     const reqInterceptor = axiosSecure.interceptors.request.use((config) => {
-      config.headers.Authorization = `Bearer ${user.accesToken}`;
+      config.headers.Authorization = `Bearer ${user.accessToken}`;
       return config;
     });
 
@@ -25,7 +25,7 @@ const useAxiosSecure = () => {
       },
       (error) => {
         console.log(error);
-        const statusCode = error.status;
+        const statusCode = error.response?.status;
 
         if (statusCode == 401 || statusCode == 402) {
           signOutUser().then(() => {
@@ -37,8 +37,8 @@ const useAxiosSecure = () => {
     );
 
     return () => {
-      axios.interceptors.request.eject(reqInterceptor);
-      axios.interceptors.response.eject(resInterceptor);
+      axiosSecure.interceptors.request.eject(reqInterceptor);
+      axiosSecure.interceptors.response.eject(resInterceptor);
     };
   }, [user, signOutUser, navigate]);
   return axiosSecure;

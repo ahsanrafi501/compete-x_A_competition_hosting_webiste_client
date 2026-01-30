@@ -13,7 +13,7 @@ const Registration = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { registerUser } = useAuth();
+  const { registerUser, updateUserProfile } = useAuth();
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
 
@@ -21,7 +21,6 @@ const Registration = () => {
     const profilePhoto = data?.profilePhoto[0];
 
     registerUser(data.email, data.password).then(() => {
-      navigate("/");
       const formData = new FormData();
       formData.append("image", profilePhoto);
       const imgAPI = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMG_HOST_KEY}`;
@@ -30,12 +29,17 @@ const Registration = () => {
         .then((res) => {
           const photoURL = res.data.data.url;
 
+          updateUserProfile({
+            displayName: data.name,
+            photoURL: photoURL,
+          });
+
           // Create User in Database
           const userInfo = {
             displayName: data.name,
             photoURL: photoURL,
             email: data.email,
-            role:'user',
+            role: "user",
           };
 
           axiosSecure
@@ -44,6 +48,7 @@ const Registration = () => {
               if (res.data.insertedId) {
                 console.log("User added in database");
               }
+              navigate("/");
             })
             .catch((error) => {
               console.log(error);
