@@ -1,5 +1,6 @@
 import React from 'react';
 import { Trophy, Medal, Star, Crown } from 'lucide-react';
+import { Link } from 'react-router';
 
 const LeaderBoard = () => {
   // Dummy data for top competitors
@@ -96,9 +97,9 @@ const LeaderBoard = () => {
             <div className="p-4 bg-white border-4 border-black font-black uppercase text-sm -rotate-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
                 Want to see your name here?
             </div>
-            <button className="px-8 py-4 bg-error text-white border-4 border-black font-black uppercase shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
+            <Link to={'/all-contests'} className="px-8 py-4 bg-error text-white border-4 border-black font-black uppercase shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
                 Enter Next Contest
-            </button>
+            </Link>
         </div>
       </div>
     </div>

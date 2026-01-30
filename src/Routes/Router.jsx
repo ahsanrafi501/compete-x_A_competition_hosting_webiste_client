@@ -8,6 +8,7 @@ import AllContest from "../Page/AllContest/AllContest";
 import MyEnrolledContest from "../Page/myEnrolledContest/MyEnrolledContest";
 import LeaderBoard from "../Page/LeaderBoard/LeaderBoard";
 import Dashboard from "../Page/ Dashboard/Dashboard";
+import ContestDetails from "../Page/ContestDetails/ContestDetails";
 
 export const router = createBrowserRouter([
   { path: "/", 
@@ -44,6 +45,10 @@ export const router = createBrowserRouter([
         {
             path:'/dashboard',
             Component: Dashboard
+        },
+        {
+            path:'/contest/:id',
+            Component: ContestDetails
         },
     ]
 },
