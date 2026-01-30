@@ -18,7 +18,7 @@
   --color-secondary: #03373D;  /* Secondary buttons, hover, highlights */
 
   /* Base / background colors */
-  --color-base-100: #ffffff;   /* Card or page background */
+  --color-base-100: ##F3F3F3;   /* Card or page background */
   --color-base-200: #f4f4f5;   /* Slightly darker background */
   --color-base-300: #e5e5e5;   /* Darker backgrounds if needed */
 
@@ -43,4 +43,9 @@ body{
   font-family: "Urbanist", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+}
+
+/* styles.css */
+.active {
+  @apply btn bg-base-100;  /* Tailwind @apply syntax */
 }
