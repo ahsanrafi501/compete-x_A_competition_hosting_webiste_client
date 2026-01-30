@@ -1,23 +1,47 @@
 import React from "react";
 import useAuth from "../../../Hook/useAuth";
 import { useNavigate } from "react-router";
+import useAxiosSecure from "../../../Hook/useAxiosSecure";
 
 const SocialLogin = () => {
-    const {signInWithGoogle} = useAuth();
-    const navigate = useNavigate();
-    const handleGoogleSignIn = ()=>{
-        signInWithGoogle()
-        .then((res)=>{
-            console.log(res);
-            navigate('/');
+  const { signInWithGoogle } = useAuth();
+  const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
+  const handleGoogleSignIn = () => {
+    signInWithGoogle()
+      .then((res) => {
+        console.log(res);
+        // Create User in Database
+        const userInfo = {
+            displayName: res.user.name,
+            photoURL: res.user.photoURL,
+            email: res.user.email,
+            role: "user",
+        };
+        
+        axiosSecure
+        .post("/users", userInfo)
+        .then((res) => {
+            if (res.data.insertedId) {
+                console.log("User added in database");
+            }
         })
-        .error(err=>{
-            console.log(err);
-        })
-    }
+        .catch((error) => {
+            console.log(error);
+        });
+        
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <div>
-      <button onClick={handleGoogleSignIn} className="btn bg-white text-black border-[#e5e5e5]">
+      <button
+        onClick={handleGoogleSignIn}
+        className="btn bg-white text-black border-[#e5e5e5]"
+      >
         <svg
           aria-label="Google logo"
           width="16"

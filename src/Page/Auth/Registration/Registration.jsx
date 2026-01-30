@@ -13,51 +13,49 @@ const Registration = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const {registerUser, loading} = useAuth()
+  const { registerUser } = useAuth();
   const navigate = useNavigate();
-  const axiosSecure = useAxiosSecure()
+  const axiosSecure = useAxiosSecure();
 
-  const handleRegistration = (data) =>{
-    
+  const handleRegistration = (data) => {
     const profilePhoto = data?.profilePhoto[0];
-    
 
-    registerUser(data.email, data.password)
-    .then(()=>{
-        const formData = new FormData();
-        formData.append('image', profilePhoto);
-        const imgAPI = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMG_HOST_KEY}`;
-        axios.post(imgAPI, formData)
-        .then(res=>{
-            const photoURL = res.data.data.url;
-            
+    registerUser(data.email, data.password).then(() => {
+      navigate("/");
+      const formData = new FormData();
+      formData.append("image", profilePhoto);
+      const imgAPI = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMG_HOST_KEY}`;
+      axios
+        .post(imgAPI, formData)
+        .then((res) => {
+          const photoURL = res.data.data.url;
 
-            // Create User in Database
-            const userInfo = {
-                displayName: data.name,
-                photoURL: photoURL,
-                email: data.email,
-            }
+          // Create User in Database
+          const userInfo = {
+            displayName: data.name,
+            photoURL: photoURL,
+            email: data.email,
+            role:'user',
+          };
 
-            axiosSecure.post('/user', userInfo)
-            .then(res =>{
-              if(res.data.insertedId){
+          axiosSecure
+            .post("/users", userInfo)
+            .then((res) => {
+              if (res.data.insertedId) {
                 console.log("User added in database");
               }
             })
-            .catch(error=>{
+            .catch((error) => {
               console.log(error);
-            })
+            });
 
-            console.log(userInfo)
-            navigate('/');
+          console.log(userInfo);
         })
-        .catch(err=>{
+        .catch((err) => {
           console.log(err);
-        })
-    })
-
-  }
+        });
+    });
+  };
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-gray-100">
       <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
@@ -77,53 +75,60 @@ const Registration = () => {
               Please enter your information for register
             </p>
             <form onSubmit={handleSubmit(handleRegistration)}>
+              <label className="label">Uplaod Photo</label>
+              <input
+                type="file"
+                {...register("profilePhoto", { required: true })}
+                className="file-input file-input-warning"
+              />
+              {errors.profilePhoto?.type == "required" && (
+                <p className="text-red-500">Full Name is required</p>
+              )}
 
-            <label className="label">Uplaod Photo</label>
-            <input type="file" {...register('profilePhoto',{required: true})} className="file-input file-input-warning" />
-            {errors.profilePhoto?.type == "required" && (
-              <p className="text-red-500">Full Name is required</p>
-            )}
+              <label className="label">Full Name</label>
+              <input
+                {...register("name", { required: true })}
+                type="text"
+                className="input"
+                placeholder="Full Name"
+              />
+              {errors.name?.type == "required" && (
+                <p className="text-red-500">Full Name is required</p>
+              )}
 
-            <label className="label">Full Name</label>
-            <input
-              {...register("name", { required: true })}
-              type="text"
-              className="input"
-              placeholder="Full Name"
-            />
-            {errors.name?.type == "required" && (
-              <p className="text-red-500">Full Name is required</p>
-            )}
+              <label className="label">Email</label>
+              <input
+                {...register("email", { required: true })}
+                type="email"
+                className="input"
+                placeholder="Email"
+              />
+              {errors.email?.type == "required" && (
+                <p className="text-red-500">Email is required</p>
+              )}
 
-            <label className="label">Email</label>
-            <input
-              {...register("email", { required: true })}
-              type="email"
-              className="input"
-              placeholder="Email"
-            />
-            {errors.email?.type == "required" && (
-              <p className="text-red-500">Email is required</p>
-            )}
+              <label className="label">Password</label>
+              <input
+                {...register("password", { required: true })}
+                type="password"
+                className="input"
+                placeholder="Password"
+              />
+              {errors.password?.type === "required" && (
+                <p className="text-red-500">Password is required</p>
+              )}
 
-            <label className="label">Password</label>
-            <input
-              {...register("password", { required: true })}
-              type="password"
-              className="input"
-              placeholder="Password"
-            />
-            {errors.password?.type === "required" && (
-              <p className="text-red-500">Password is required</p>
-            )}
-            
-
-            <div className="mt-5">
-              <p>Already have an account? <Link to={'/login'} className="text-blue-500 underline">Click here</Link></p>
-            </div>
-            <button className="btn btn-primary text-black text-xl mt-4 w-full">
-              Sign Up
-            </button>
+              <div className="mt-5">
+                <p>
+                  Already have an account?{" "}
+                  <Link to={"/login"} className="text-blue-500 underline">
+                    Click here
+                  </Link>
+                </p>
+              </div>
+              <button className="btn btn-primary text-black text-xl mt-4 w-full">
+                Sign Up
+              </button>
             </form>
           </fieldset>
           <div className="flex justify-center items-center flex-col mt-5">

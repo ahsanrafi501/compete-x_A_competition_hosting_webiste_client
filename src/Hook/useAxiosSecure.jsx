@@ -2,10 +2,9 @@ import axios from "axios";
 import useAuth from "./useAuth";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
-import { join } from "firebase/firestore/pipelines";
 
 const axiosSecure = axios.create({
-  baseURL: "https://some-domain.com/api/",
+  baseURL: "http://localhost:3000",
 });
 
 const useAxiosSecure = () => {
