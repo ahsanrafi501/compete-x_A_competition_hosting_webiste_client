@@ -1,51 +1,59 @@
 @import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
+
 @plugin "daisyui" {
   themes: light --default;
-  root: ":root";
-  include: ;
-  exclude: ;
-  prefix: ;
-  logs: true;
 }
 
 @plugin "daisyui/theme" {
   name: "light";
   default: true;
 
-  /* Primary & Secondary colors */
-  --color-primary: #CAEB66;    /* Main buttons, links */
-  --color-secondary: #03373D;  /* Secondary buttons, hover, highlights */
+  /* GENZ RETRO PALETTE */
+  --color-primary: #FDE047;    /* Neon Yellow - Main accent */
+  --color-secondary: #8B5CF6;  /* Electric Violet - Secondary elements */
+  --color-accent: #00F0FF;     /* Matrix Cyan - Highlights */
+  
+  /* BASE COLORS */
+  --color-base-100: #FFFFFF;   /* Clean White */
+  --color-base-200: #F4F4F4;   /* Light Gray */
+  --color-base-300: #121212;   /* Deep Black for contrast */
 
-  /* Base / background colors */
-  --color-base-100: ##F3F3F3;   /* Card or page background */
-  --color-base-200: #f4f4f5;   /* Slightly darker background */
-  --color-base-300: #e5e5e5;   /* Darker backgrounds if needed */
+  /* TEXT COLORS */
+  --color-base-content: #121212;      /* Primary text - Black */
+  --color-primary-content: #121212;   /* Text on Yellow - Black */
+  --color-secondary-content: #ffffff; /* Text on Violet - White */
 
-  /* Text colors for light theme */
-  --color-base-content: #1F2937;  /* Default text (dark gray / almost black) */
-  --color-primary-content: #1F2937;  /* Text on primary color */
-  --color-secondary-content: #ffffff; /* Text on secondary color (dark bg) */
+  /* STATE COLORS */
+  --color-success: #10B981;    /* Emerald */
+  --color-warning: #F59E0B;    /* Amber */
+  --color-error: #FF007A;      /* Cyber Pink - Error */
 
-  /* Accent / Alerts */
-  --color-accent: #FF7F50;     /* Highlight elements */
-  --color-info: #2094f3;       /* Info messages */
-  --color-success: #3adb76;    /* Success messages */
-  --color-warning: #ff9900;    /* Warning messages */
-  --color-error: #ff5724;      /* Error messages */
+  /* BORDER RADIUS FOR RETRO VIBE */
+  --rounded-box: 0px;          /* Sharp corners for containers */
+  --rounded-btn: 0px;          /* Sharp corners for buttons */
 }
 
+/* CUSTOM RETRO UTILITIES */
+@theme {
+  --color-retro-yellow: #FDE047;
+  --color-retro-cyan: #00F0FF;
+  --color-retro-pink: #FF007A;
+  --color-retro-violet: #8B5CF6;
+  --color-retro-black: #121212;
+}
 
-
-
-
-body{
+body {
   font-family: "Urbanist", sans-serif;
-  font-optical-sizing: auto;
-  font-style: normal;
+  background-color: #F4F4F4;
+  color: #121212;
 }
 
-/* styles.css */
+/* Neo-Brutalist Button State */
 .active {
-  @apply btn bg-base-100;  /* Tailwind @apply syntax */
+  background-color: #FDE047 !important;
+  color: #121212 !important;
+  border: 2px solid #121212 !important;
+  box-shadow: 4px 4px 0px 0px #121212;
+  transform: translate(-2px, -2px);
 }

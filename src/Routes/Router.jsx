@@ -4,6 +4,9 @@ import Login from "../Page/Auth/Login/Login";
 import Registration from "../Page/Auth/Registration/Registration";
 import Home from "../Page/Home/Home";
 import MyProfile from "../Page/MyProfile/MyProfile";
+import AllContest from "../Page/AllContest/AllContest";
+import MyEnrolledContest from "../Page/myEnrolledContest/MyEnrolledContest";
+import LeaderBoard from "../Page/LeaderBoard/LeaderBoard";
 
 export const router = createBrowserRouter([
   { path: "/", 
@@ -24,7 +27,19 @@ export const router = createBrowserRouter([
         {
             path:'/profile',
             Component: MyProfile
-        }
+        },
+        {
+            path:'all-contests',
+            Component: AllContest
+        },
+        {
+            path:'my-enroll-contest',
+            Component: MyEnrolledContest
+        },
+        {
+            path:'leaderboard',
+            Component: LeaderBoard
+        },
     ]
 },
 ]);

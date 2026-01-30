@@ -1,22 +1,26 @@
-import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 import { Users, Trophy, Calendar, ExternalLink, Zap } from "lucide-react";
 import { Link } from "react-router";
 
-const AllContest = () => {
+const TopContest = () => {
   const axiosSecure = useAxiosSecure();
   const { data: cards = [] } = useQuery({
     queryKey: ["contest"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/all-contests");
+      const res = await axiosSecure.get("/top-contests");
       return res.data;
     },
   });
 
+  const linkStyles = ({ isActive }) =>
+    `px-4 py-2 font-black uppercase text-sm transition-all border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] btn${
+      isActive ? "bg-primary text-black -rotate-2" : "bg-white text-black"
+    }`;
+
   return (
     <div className="mt-12 mb-20">
-
       <div className="text-center mb-12">
         <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-black">
           Pick Your{" "}
@@ -109,8 +113,27 @@ const AllContest = () => {
           </div>
         ))}
       </div>
+      <div className="flex justify-center mt-12 mb-8">
+        <div className="relative group p-6 bg-white border-4 border-black shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] hover:shadow-[15px_15px_0px_0px_#FDE047] transition-all hover:-translate-x-1 hover:-translate-y-1 w-full max-w-sm flex flex-col items-center gap-4">
+          {/* Decorative Badge */}
+          <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-secondary text-white border-4 border-black px-4 py-1 font-black uppercase text-xs rotate-2">
+            Quick Access
+          </div>
+
+          <p className="text-black font-black uppercase text-center text-sm mt-2">
+            Ready to explore more?
+          </p>
+
+          <Link
+            to="/all-contests"
+            className={`w-full text-center ${linkStyles}`}
+          >
+            Browse All Contests
+          </Link>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default AllContest;
+export default TopContest;
