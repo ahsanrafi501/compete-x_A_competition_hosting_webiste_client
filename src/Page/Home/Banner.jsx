@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Search, Sparkles } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../Hook/useAxiosSecure";
 import useAxios from "../../Hook/useAxios";
 import TopContest from "../TopContest/TopContest";
 
@@ -19,7 +18,6 @@ const Banner = () => {
         return res.data;
       },
     });
-    console.log(searchContest);
 
 
   return (

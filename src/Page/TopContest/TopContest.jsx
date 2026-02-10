@@ -3,17 +3,14 @@ import { Users, Trophy, Calendar, ExternalLink, Zap } from "lucide-react";
 import { Link } from "react-router";
 
 const TopContest = ({searchContest}) => {
-  
 
-  console.log(Array.isArray(searchContest))
 
-  const cards = [...searchContest]
+  const cards = [...searchContest];
 
   const linkStyles = ({ isActive }) =>
     `px-4 py-2 font-black uppercase text-sm transition-all border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] btn${
       isActive ? "bg-primary text-black -rotate-2" : "bg-white text-black"
     }`;
-
   return (
     <div className="mt-12 mb-20">
       <div className="text-center mb-12">
