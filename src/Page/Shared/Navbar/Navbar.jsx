@@ -35,7 +35,7 @@ const Navbar = () => {
       <NavLink to="/all-contests" className={linkStyles}>
         All Contest
       </NavLink>
-      <NavLink to="/my-enroll-contest" className={linkStyles}>
+      <NavLink to="/all-enrolled-contests" className={linkStyles}>
         Enrolled Contest
       </NavLink>
       <NavLink to="/leaderboard" className={linkStyles}>
@@ -105,7 +105,7 @@ const Navbar = () => {
                 </li>
                 <li className="border-b-2 border-black">
                   <Link
-                    to="/dashboard"
+                    to="/dashboard/overview"
                     className="p-4 font-black uppercase hover:bg-primary rounded-none transition-colors"
                   >
                     Dashboard

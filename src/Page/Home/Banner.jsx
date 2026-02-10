@@ -1,8 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { Search, Sparkles } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../Hook/useAxiosSecure";
+import useAxios from "../../Hook/useAxios";
+import TopContest from "../TopContest/TopContest";
 
 const Banner = () => {
+  const AxiosInstance = useAxios();
+  const [searchText, setSearchText] = useState("")
+  const handleSearch = (e) => {
+    setSearchText(e.target.value)
+  }
+
+   const { data: searchContest=[] } = useQuery({
+      queryKey: ["search", searchText],
+      queryFn: async () => {
+        const res = await AxiosInstance.get(`/contests?search=${searchText}`);
+        return res.data;
+      },
+    });
+    console.log(searchContest);
+
+
   return (
+    <div>
     <div className="relative overflow-hidden bg-base-100  flex items-center border-b-8 border-black">
       {/* Retro Grid - Using your Primary Yellow for the grid lines */}
       <div
@@ -47,7 +68,7 @@ const Banner = () => {
 
         {/* Neo-Brutalist Search Bar */}
         <div className="max-w-2xl mx-auto">
-          <form className="relative group">
+          <form onChange={handleSearch} className="relative group">
             <input
               type="text"
               placeholder="SEARCH BY CONTEST TYPE..."
@@ -57,7 +78,11 @@ const Banner = () => {
               type="submit"
               className="absolute right-4 top-1/2 -translate-y-1/2 p-4 bg-primary border-4 border-black hover:bg-accent transition-colors shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-1 active:translate-y-1"
             >
-              <Search className="text-black" size={32} strokeWidth={4} />
+              <Search
+                className="text-black"
+                size={32}
+                strokeWidth={4}
+              />
             </button>
           </form>
 
@@ -74,6 +99,8 @@ const Banner = () => {
           </div>
         </div>
       </section>
+    </div>
+      <TopContest searchContest={searchContest}></TopContest>
     </div>
   );
 };
