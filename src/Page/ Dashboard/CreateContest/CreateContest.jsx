@@ -9,8 +9,10 @@ import {
 } from "lucide-react";
 import useAxiosSecure from "../../../Hook/useAxiosSecure";
 import Swal from "sweetalert2";
+import useAuth from "../../../Hook/useAuth";
 
 const CreateContest = () => {
+  const {user} = useAuth();
   const {
     register,
     handleSubmit,
@@ -23,7 +25,10 @@ const CreateContest = () => {
     const contestData = {
       ...data,
       participantCount: 0,
-      status: "pending", // Requires Admin Approval
+      status: "pending",
+      createdBy: user.email,
+      creatorId: user._id,
+      creatorName: user.displayName,
       createdAt: new Date(),
     };
 
