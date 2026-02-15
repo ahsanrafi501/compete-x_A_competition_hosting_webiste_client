@@ -29,6 +29,7 @@ const CreateContest = () => {
       createdBy: user.email,
       creatorId: user._id,
       creatorName: user.displayName,
+      creatorImg: user.photoURL,
       createdAt: new Date(),
     };
 

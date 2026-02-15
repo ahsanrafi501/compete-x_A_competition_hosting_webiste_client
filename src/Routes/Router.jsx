@@ -15,6 +15,7 @@ import CreateContest from "../Page/ Dashboard/CreateContest/CreateContest";
 import MyEnrolledContests from "../Page/MyEnrolledContests/MyEnrolledContests";
 import FullReview from "../Page/MyEnrolledContests/FullReview";
 import ApproveContests from "../Page/ApproveContests/ApproveContests";
+import ContinueArena from "../Page/ContinueArena/ContinueArena";
 
 export const router = createBrowserRouter([
   {
@@ -62,6 +63,12 @@ export const router = createBrowserRouter([
         path: "/contest/:id",
         element: <PrivateRoute>
             <ContestDetails></ContestDetails>
+        </PrivateRoute>
+      },
+      {
+        path: "/submit-content/:courseId",
+        element: <PrivateRoute>
+            <ContinueArena></ContinueArena>
         </PrivateRoute>
       },
     ],

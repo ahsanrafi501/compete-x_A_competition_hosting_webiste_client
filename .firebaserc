@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "competex-603ca",
+    "prod": "competex-603ca"
+  },
+  "targets": {},
+  "etags": {}
+}
