@@ -212,7 +212,7 @@ const ContestDetails = () => {
 
           {/* Enter Button */}
         { isAlreadyEnrolled ? <button
-            onClick={() => navigate('/all-enrolled-contests')}
+            onClick={() => navigate(`/submit-content/${contest._id}`)}
             disabled={isDeadlinePassed || isCreator}
             className={`w-full py-6 border-8 border-black font-black uppercase text-3xl shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] transition-all
                 

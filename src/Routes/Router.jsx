@@ -66,7 +66,7 @@ export const router = createBrowserRouter([
         </PrivateRoute>
       },
       {
-        path: "/submit-content/:courseId",
+        path: "/submit-content/:contestId",
         element: <PrivateRoute>
             <ContinueArena></ContinueArena>
         </PrivateRoute>

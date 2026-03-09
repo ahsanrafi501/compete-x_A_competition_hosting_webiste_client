@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../../Hook/useAxiosSecure';
 import useAuth from '../../../Hook/useAuth';
+import Loading from '../../Loading/Loading';
 
 const MyContests = () => {
   const axiosSecure = useAxiosSecure();
@@ -22,7 +23,7 @@ const MyContests = () => {
   // Calculate dynamic total participants from the live data
   const totalParticipants = approvedArenas.reduce((acc, curr) => acc + (curr.participantCount || 0), 0);
 
-  if (isLoading) return <div className="p-10 font-black animate-pulse">LOADING_ARENA_DATA...</div>;
+  if (isLoading) return <Loading></Loading>
 
   return (
     <div className="space-y-6 md:space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700 px-2 md:px-0">

@@ -13,7 +13,9 @@ const useAxiosSecure = () => {
 
   useEffect(() => {
     const reqInterceptor = axiosSecure.interceptors.request.use((config) => {
-      config.headers.Authorization = `Bearer ${user.accessToken}`;
+      if (user?.accessToken) {
+        config.headers.Authorization = `Bearer ${user.accessToken}`;
+      }
       return config;
     });
 
@@ -27,9 +29,9 @@ const useAxiosSecure = () => {
         console.log(error);
         const statusCode = error.response?.status;
 
-        if (statusCode == 401 || statusCode == 402) {
+        if (statusCode == 401 || statusCode == 403) {
           signOutUser().then(() => {
-            navigate("/logout");
+            navigate("/login");
           });
         }
         return Promise.reject(error);

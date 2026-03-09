@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { axisDeltaEquals, motion } from "framer-motion";
 import {
   CheckCircle2,
   XCircle,
@@ -12,9 +12,11 @@ import {
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
+import useAuth from "../../Hook/useAuth";
 
 const ApproveContests = () => {
   const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
   const { refetch, data: pendingContests = [] } = useQuery({
     queryKey: ["pendingContest"],
     queryFn: async () => {
@@ -23,8 +25,8 @@ const ApproveContests = () => {
     },
   });
 
-  const handleApproved = (id) => {
-    Swal.fire({
+  const handleApproved = async (id) => {
+    const result = await Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
       icon: "warning",
@@ -32,27 +34,30 @@ const ApproveContests = () => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, approve it",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axiosSecure
-          .patch(`/contest/approved/${id}`)
-          .then(() => {
-            refetch();
-            Swal.fire({
-              title: "Approved!",
-              text: "Contest has been Approved.",
-              icon: "success",
-            });
-          })
-          .catch(() => {
-            Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: "Something went wrong!",
-            });
-          });
-      }
     });
+
+    if (!result.isConfirmed) return;
+
+    try {
+      await axiosSecure.patch(`/contest/approved/${id}`);
+      const roleUpdateRes = await axiosSecure.patch(
+        `/users/role-update?email=${user.email}`,
+      );
+      console.log("User role updated as contestCreator", roleUpdateRes.data);
+      refetch();
+      Swal.fire({
+        title: "Approved!",
+        text: "Contest has been Approved.",
+        icon: "success",
+      });
+    } catch (error) {
+      console.log("Error during approval process", error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+      });
+    }
   };
 
   const handleDenied = (id) => {

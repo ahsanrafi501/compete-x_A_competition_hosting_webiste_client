@@ -54,6 +54,7 @@ const Registration = () => {
       }
     } catch (error) {
       console.error("Registration Error:", error);
+      alert("error", error)
     }
   };
 
